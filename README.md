@@ -1,4 +1,3 @@
-
 # marveli-za
 
 > A Vue.js project
