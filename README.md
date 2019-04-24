@@ -7,6 +7,7 @@
 ``` bash
 # install dependencies
 npm install
+npm install cypress --save-dev
 
 # serve with hot reload at localhost:8080
 npm run dev
