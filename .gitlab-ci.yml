@@ -13,8 +13,7 @@ test:
   stage: test
   script:
     - npm ci
-    # print CI environment variables
-    - $(npm bin)/print-env CI
-    - npm run cy:verify
-    - npm run start:ci &
-    - npm run e2e:record
+    - npm install --save-dev cypress
+    - npm start &
+    - sleep 15
+    - npm run cy:run
