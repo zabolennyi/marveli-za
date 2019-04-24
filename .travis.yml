@@ -1,0 +1,22 @@
+language: node_js
+
+node_js:
+  - 10.8
+
+cache:
+  # cache both npm modules and Cypress binary
+  directories:
+    - ~/.npm
+    - ~/.cache
+  # install dependencies and check that Cypress can run
+  override:
+    - npm ci
+    - npm run cy:verify
+
+script:
+  # start server in the background
+  - npm start -- --silent &
+  # run all Cypress tests and record on the dashboard
+  - npm run cy:run -- --record
+  # kill all background jobs
+  - kill $(jobs -p) || true
