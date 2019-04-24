@@ -10,6 +10,7 @@
     "lint": "eslint --ext .js,.vue src",
     "cy:open": "cypress open",
     "cy:run": "cypress run",
+    "waiton": "wait-on http://localhost:8080",
     "build": "node build/build.js"
   },
   "dependencies": {
