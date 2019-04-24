@@ -9,7 +9,7 @@
     "start": "npm run dev",
     "lint": "eslint --ext .js,.vue src",
     "cy:open": "cypress open",
-    "cy:run": "cypress run",
+    "cy:run": "cypress run --config video=false",
     "waiton": "wait-on http://localhost:8080",
     "build": "node build/build.js"
   },
