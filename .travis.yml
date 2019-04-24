@@ -16,7 +16,7 @@ cache:
 script:
   # start server in the background
   - npm start &
-  - npm run waiton
+  - sleep 15
   # run all Cypress tests and record on the dashboard
   - npm run cy:run -- --record
   # kill all background jobs
