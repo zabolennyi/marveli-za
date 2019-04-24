@@ -18,6 +18,6 @@ script:
   - npm start &
   - sleep 15
   # run all Cypress tests and record on the dashboard
-  - npm run cy:run -- --record
+  - npm run cy:run
   # kill all background jobs
   - kill $(jobs -p) || true
