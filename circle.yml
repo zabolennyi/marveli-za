@@ -1,29 +1,53 @@
-version: 1
+version: 2.1
+orbs:
+  cypress: cypress-io/cypress@1.5.1
+
+executors:
+  mac:
+    macos:
+      xcode: \"10.1.0\"
+
 jobs:
-  test:
-    docker:
-      - image: cypress/base:10
+  release:
+    executor: cypress/base-10
     steps:
-      - checkout
-      - restore_cache:
-          keys:
-            - cache-{{ checksum "package.json" }}
-      - run:
-          name: Install dependencies
-          command: npm ci
-      - save_cache:
-          key: cache-{{ checksum "package.json" }}
-          paths:
-            - ~/.npm
-            - ~/.cache
-      - run:
-          command: npm start
-          background: true
-      - run: sleep 15
-      - run: npm run cy:run
+      - attach_workspace:
+          at: ~/
+      - run: npm run semantic-release
 
 workflows:
-  version: 1
-  build:
+  mac-build:
     jobs:
-      - test
+      - cypress/run:
+          name: Mac test
+          executor: mac
+          build: 'npm run build'
+          start: 'npm start'
+          record: true
+          group: 'Mac build'
+
+  linux-build:
+    jobs:
+      - cypress/install:
+          name: 'Linux install'
+          build: 'npm run build'
+
+      - cypress/run:
+          name: '2 machines'
+          requires:
+            - Linux install
+          executor: cypress/browsers-chrome69
+          browser: chrome
+          record: true
+          parallel: true
+          parallelism: 2
+          group: '2x-chrome'
+          start: 'npm start'
+
+      - release:
+          filters:
+            branches:
+              only:
+                - master
+          requires:
+            - 2 machines
