@@ -13,6 +13,10 @@ cache:
     - npm ci
     - npm run cy:verify
 
+branches:
+  only:
+  - master
+  
 script:
   # start server in the background
   - npm start &
