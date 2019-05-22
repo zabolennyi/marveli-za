@@ -26,8 +26,7 @@
                   router-link.navbar-link(
                     :to="`${link.url}`"
                   ) {{link.tittle}}
-    .content-wrapper
-      router-view
+    router-view
 </template>
 
 <script>
