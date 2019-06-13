@@ -8,7 +8,7 @@
         .task-list
           .task-item(
             v-for="task in tasks"
-            :key="task.id"
+            :key="tasks.id"
             :class="{ completed: task.completed }"
           )
           .ui-card.ui-card--shadow
@@ -24,18 +24,18 @@ export default {
         {
           'id': 1,
           'title': 'Iron Man',
-          'description': '',
+          'description': 'aaaaa',
           'whatWhatch': 'Film',
-          'completed': 'false',
-          'editing': 'false'
+          'completed': false,
+          'editing': false
         },
         {
           'id': 2,
           'title': 'Doctor Strange',
-          'description': '',
-          'whatWhatch': 'Film',
-          'completed': 'false',
-          'editing': 'false'
+          'description': 'bbbbb',
+          'whatWhatch': 'Serial',
+          'completed': false,
+          'editing': false
         }
       ]
     }
