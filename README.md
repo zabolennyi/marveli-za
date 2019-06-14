@@ -1,6 +1,6 @@
 # marveli-za
 
-> A Vue.js project
+> A Vue.js project. Film library of Marvel 
 
 ## Build Setup
 
