@@ -34,6 +34,7 @@
           label(
             for="radioSerial"
           ) Serial
+        /////// time
         .total-time
           .total-time__film(
             v-if="whatWatch === 'Film'"
@@ -68,11 +69,19 @@
               v-model="serialSeriesMinutes"
             )
             p {{serialTime}}
+            /////// tags
         .tag-list
-        .ui-tag__wrapper
-          .ui-tag
-            span.tag-title Phase 1
+        .ui-tag__wrapper(
+          v-for="tag in tags"
+          :key="tag.title"
+        )
+          .ui-tag(
+            @click="addTagUsed(tag)"
+            :class="{active:tag.use}"
+          )
+            span.tag-title {{tag.title}}
             span.button-close
+        p {{ tagsUsed }}
 </template>
 <script>
 export default {
@@ -86,7 +95,22 @@ export default {
       filmMinutes: 11,
       serialSeason: 1,
       serialSeries: 21,
-      serialSeriesMinutes: 45
+      serialSeriesMinutes: 45,
+      tagsUsed: [],
+      tags: [
+        {
+          title: 'Phase 1',
+          use: false
+        },
+        {
+          title: 'Phase 2',
+          use: false
+        },
+        {
+          title: 'Phase 3',
+          use: false
+        }
+      ]
     }
   },
   methods: {
@@ -114,6 +138,16 @@ export default {
       this.taskId += 1
       this.taskTitle = ''
       this.taskDescription = ''
+    },
+    addTagUsed (tag) {
+      tag.use = !tag.use
+      if (tag.use) {
+        this.tagsUsed.push(
+          tag.title
+        )
+      } else {
+        this.tagsUsed.splice(tag.title, 1)
+      }
     },
     getHoursAndMinutes (minutes) {
       let hours = Math.trunc(minutes / 60)
