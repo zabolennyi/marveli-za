@@ -38,40 +38,41 @@
           .total-time__film(
             v-if="whatWatch === 'Film'"
           )
-            span Total Film Time
-          .total-time__film(
+            span.time-title Hours
+            input.time-input-hours(
+              type="number"
+              v-model="filmHours"
+            )
+            span.time-title Minutes
+            input.time-input(
+              type="number"
+              v-model="filmMinutes"
+            )
+            p {{filmTime}}
+          .total-time__serial(
             v-if="whatWatch === 'Serial'"
           )
-            span Total Serial Time
+            span.time-title How many season?
+            input.time-input(
+              type="number"
+              v-model="serialSeason"
+            )
+            span.time-title How many series?
+            input.time-input(
+              type="number"
+              v-model="serialSeries"
+            )
+            span.time-title How long is one series (minutes)?
+            input.time-input(
+              type="number"
+              v-model="serialSeriesMinutes"
+            )
+            p {{serialTime}}
         .tag-list
         .ui-tag__wrapper
           .ui-tag
             span.tag-title Phase 1
             span.button-close
-    section
-      .container
-        .task-list
-          .task-item(
-            v-for="task in tasks"
-            :key="tasks.id"
-            :class="{ completed: task.completed }"
-          )
-            .ui-card.ui-card--shadow
-              .task-item__info
-                .task-item__main-info
-                  span.ui-label.ui-label--light {{ task.whatWatch }}
-                  span Total Time:
-                span.button-close
-              .task-item__header
-                .ui-checkbox-wrapper
-                  input.ui-checkbox(
-                    type='checkbox'
-                    v-model="task.completed"
-                    )
-                span.ui-title-3 {{ task.title }}
-              .task-item__body
-              p.ui-text-regular {{ task.description }}
-
 </template>
 <script>
 export default {
@@ -81,24 +82,11 @@ export default {
       taskId: 3,
       taskDescription: '',
       whatWatch: 'Film',
-      tasks: [
-        {
-          'id': 1,
-          'title': 'Iron Man',
-          'description': 'aaaaa',
-          'whatWatch': 'Film',
-          'completed': false,
-          'editing': false
-        },
-        {
-          'id': 2,
-          'title': 'Doctor Strange',
-          'description': 'bbbbb',
-          'whatWatch': 'Serial',
-          'completed': false,
-          'editing': false
-        }
-      ]
+      filmHours: 1,
+      filmMinutes: 11,
+      serialSeason: 1,
+      serialSeries: 21,
+      serialSeriesMinutes: 45
     }
   },
   methods: {
@@ -106,19 +94,41 @@ export default {
       if (this.taskTitle === '') {
         return
       }
-      this.tasks.push({
+      let time
+      if (this.whatWatch === 'Film') {
+        time = this.filmTime
+      } else {
+        time = this.serialTime
+      }
+      const task = ({
         id: this.taskId,
         title: this.taskTitle,
         description: this.taskDescription,
         whatWatch: this.whatWatch,
+        time,
         completed: false,
         editing: false
       })
-
+      console.log(task)
       //  reset
       this.taskId += 1
       this.taskTitle = ''
       this.taskDescription = ''
+    },
+    getHoursAndMinutes (minutes) {
+      let hours = Math.trunc(minutes / 60)
+      let min = minutes % 60
+      return hours + ' Hours ' + min + ' Minutes'
+    }
+  },
+  computed: {
+    filmTime () {
+      let min = (this.filmHours * 60) + (this.filmMinutes * 1)
+      return this.getHoursAndMinutes(min)
+    },
+    serialTime () {
+      let min = this.serialSeason * this.serialSeries * this.serialSeriesMinutes
+      return this.getHoursAndMinutes(min)
     }
   }
 }
@@ -134,29 +144,14 @@ export default {
     &:last-child
       margin-right  0
 
-.task-item
+.total-time
   margin-bottom 20px
-  &:last-child
-    margin-bottom 0
 
-.ui-label
-  margin-right 8px
+.time-title
+  display block
+  margin-bottom 6px
 
-.task-item__info
-  display flex
-  align-items center
-  justify-content space-between
-  margin-bottom 20px
-  .button-close
-    width 20px
-    height @width
-
-.task-item__header
-  display flex
-  align-items center
-  margin-bottom 18px
-  .ui-checkbox-wrapper
-    margin-right 8px
-  .ui-title-3
-    margin-bottom 0
+.time-input
+  max-width 80px
+  margin-right 10px
 </style>
