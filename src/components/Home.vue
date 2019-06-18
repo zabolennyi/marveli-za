@@ -40,7 +40,7 @@
             v-if="whatWatch === 'Film'"
           )
             span.time-title Hours
-            input.time-input-hours(
+            input.time-input(
               type="number"
               v-model="filmHours"
             )
@@ -70,17 +70,38 @@
             )
             p {{serialTime}}
             /////// tags
-        .tag-list
-        .ui-tag__wrapper(
-          v-for="tag in tags"
-          :key="tag.title"
-        )
-          .ui-tag(
-            @click="addTagUsed(tag)"
-            :class="{active:tag.use}"
+        .tag-list.tag-list--add
+          .ui-tag__wrapper(
+            @click="tagMenuShow = !tagMenuShow"
           )
-            span.tag-title {{tag.title}}
-            span.button-close
+            .ui-tag
+              span.tag-title Add New
+              span.button-close(
+                :class="{ active: !tagMenuShow }"
+              )
+        .tag-list.tag-list--menu(
+          v-if="tagMenuShow"
+        )
+          input.tag-add--input(
+            type="text"
+            placeholder="New tag"
+            v-model="tagTitle"
+            @keyup.enter="newTag"
+          )
+          .button.button-primary(
+            @click="newTag"
+          ) Send
+        .tag-list
+          .ui-tag__wrapper(
+            v-for="tag in tags"
+            :key="tag.title"
+          )
+            .ui-tag(
+              @click="addTagUsed(tag)"
+              :class="{used: tag.use}"
+            )
+              span.tag-title {{tag.title}}
+              span.button-close
         p {{ tagsUsed }}
 </template>
 <script>
@@ -96,6 +117,8 @@ export default {
       serialSeason: 1,
       serialSeries: 21,
       serialSeriesMinutes: 45,
+      tagTitle: '',
+      tagMenuShow: false,
       tagsUsed: [],
       tags: [
         {
@@ -114,6 +137,15 @@ export default {
     }
   },
   methods: {
+    newTag () {
+      if (this.tagTitle === '') {
+        return
+      }
+      this.tags.push({
+        title: this.tagTitle,
+        used: false
+      })
+    },
     newTask () {
       if (this.taskTitle === '') {
         return
@@ -129,6 +161,7 @@ export default {
         title: this.taskTitle,
         description: this.taskDescription,
         whatWatch: this.whatWatch,
+        tagsUsed: this.tagsUsed,
         time,
         completed: false,
         editing: false
@@ -138,6 +171,7 @@ export default {
       this.taskId += 1
       this.taskTitle = ''
       this.taskDescription = ''
+      this.tagsUsed = []
     },
     addTagUsed (tag) {
       tag.use = !tag.use
@@ -179,6 +213,7 @@ export default {
       margin-right  0
 
 .total-time
+  display block
   margin-bottom 20px
 
 .time-title
@@ -188,4 +223,35 @@ export default {
 .time-input
   max-width 80px
   margin-right 10px
+
+.tag-list
+  margin-bottom 20px
+
+.ui-tag__wrapper
+  margin-right 18px
+  margin-bottom 10px
+  &:last-child
+    margin-right 0
+
+.ui-tag
+  .button-close
+    &.active
+      transform: rotate(90deg)
+  &.used
+    background-color: #48f442
+    color #ffffff
+    .button-close
+      &:before,
+      &after
+        background-color: #000000
+
+.tag-list--menu
+  display flex
+  justify-content space-between
+  align-items center
+
+.tag-add--input
+  margin-bottom 0
+  margin-right 10px
+  height 42px
 </style>
