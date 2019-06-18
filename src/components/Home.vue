@@ -166,6 +166,7 @@ export default {
         completed: false,
         editing: false
       })
+      this.$store.dispatch('newTask', task)
       console.log(task)
       //  reset
       this.taskId += 1

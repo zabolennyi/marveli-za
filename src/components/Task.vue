@@ -28,26 +28,9 @@
 </template>
 <script>
 export default {
-  data () {
-    return {
-      tasks: [
-        {
-          'id': 1,
-          'title': 'Iron Man',
-          'description': 'aaaaa',
-          'whatWatch': 'Film',
-          'completed': false,
-          'editing': false
-        },
-        {
-          'id': 2,
-          'title': 'Doctor Strange',
-          'description': 'bbbbb',
-          'whatWatch': 'Serial',
-          'completed': false,
-          'editing': false
-        }
-      ]
+  computed: {
+    tasks () {
+      return this.$store.getters.tasks
     }
   }
 }
