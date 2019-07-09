@@ -2,7 +2,11 @@ language: node_js
 
 node_js:
   - 10.8
-
+addons:
+  apt:
+    packages:
+    - libgconf-2-4
+    
 cache:
   # cache both npm modules and Cypress binary
   directories:
@@ -15,7 +19,7 @@ cache:
 
 branches:
   only:
-  - master
+  - dev
   
 script:
   # start server in the background
