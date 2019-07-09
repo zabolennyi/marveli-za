@@ -108,4 +108,5 @@ a
 input
   &.error
     border-color #fc5c65
+    animation shake .3s
 </style>

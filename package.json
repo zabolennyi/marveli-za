@@ -14,7 +14,10 @@
     "build": "node build/build.js"
   },
   "dependencies": {
+    "firebase": "^6.2.4",
+    "firebase-admin": "^8.2.0",
     "fsevents": "^2.0.7",
+    "http2": "^3.3.7",
     "uimini": "^1.1.3",
     "vue": "^2.5.2",
     "vue-router": "^3.0.1",

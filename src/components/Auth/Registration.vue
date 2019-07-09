@@ -40,8 +40,12 @@
                     .buttons-list
                       button.button--round.button-success(
                         type="submit"
-                        :disabled="submitStatus === 'PENDING'"
-                      ) Registration
+                      )
+                        span(v-if="loading") Loading....
+                        span(v-else) Registration
+                    .status
+                      p.typo__p(v-if="submitStatus === 'OK'") Thnx
+                      p.typo__p(v-else) {{submitStatus}}
                     .message
                       span Do you have account?
                         router-link(to="/login")  Enter here
@@ -76,17 +80,28 @@ export default {
       if (this.$v.$invalid) {
         this.submitStatus = 'ERROR'
       } else {
-        console.log('submit')
         const user = {
           email: this.email,
           password: this.password
         }
-        console.log(user)
-        this.submitStatus = 'PENDING'
-        setTimeout(() => {
-          this.submitStatus = 'OK'
-        }, 500)
+        this.$store.dispatch('registerUser', user)
+          .then(() => {
+            console.log('Register')
+            this.submitStatus = 'OK'
+            this.$router.push('/')
+          })
+          .catch(err => {
+            this.submitStatus = err.message
+          })
+        // setTimeout(() => {
+        //   this.submitStatus = 'OK'
+        // }, 500)
       }
+    }
+  },
+  computed: {
+    loading () {
+      return this.$store.getters.loading
     }
   }
 }
