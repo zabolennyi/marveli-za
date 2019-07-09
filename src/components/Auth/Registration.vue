@@ -38,13 +38,13 @@
                       )
                       .error(v-if="!$v.repeatPassword.sameAsPassword") Passwords must be identical.
                     .buttons-list
-                      button.button.button-primary(
+                      button.button--round.button-success(
                         type="submit"
                         :disabled="submitStatus === 'PENDING'"
                       ) Registration
                     .message
                       span Do you have account?
-                        router-link(to="/login") Enter here
+                        router-link(to="/login")  Enter here
 </template>
 <script>
 import { required, email, minLength, sameAs } from 'vuelidate/lib/validators'
@@ -107,6 +107,15 @@ export default {
   &.errorInput
     .error
       display block
+
+.buttons-list
+  text-align right
+  margin-bottom 20px
+
+.message
+  text-align  center
+a
+  color #fc5c65
 
 input
   &.error
