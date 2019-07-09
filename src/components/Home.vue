@@ -103,13 +103,16 @@
               span.tag-title {{tag.title}}
               span.button-close
         p {{ tagsUsed }}
+         .button-list
+            button.button.button--round.button-primary(
+              @click="newTask"
+            ) Add
 </template>
 <script>
 export default {
   data () {
     return {
       taskTitle: '',
-      taskId: 3,
       taskDescription: '',
       whatWatch: 'Film',
       filmHours: 1,
@@ -157,11 +160,10 @@ export default {
         time = this.serialTime
       }
       const task = ({
-        id: this.taskId,
         title: this.taskTitle,
         description: this.taskDescription,
         whatWatch: this.whatWatch,
-        tagsUsed: this.tagsUsed,
+        tags: this.tagsUsed,
         time,
         completed: false,
         editing: false
@@ -169,7 +171,6 @@ export default {
       this.$store.dispatch('newTask', task)
       console.log(task)
       //  reset
-      this.taskId += 1
       this.taskTitle = ''
       this.taskDescription = ''
       this.tagsUsed = []
@@ -177,9 +178,9 @@ export default {
     addTagUsed (tag) {
       tag.use = !tag.use
       if (tag.use) {
-        this.tagsUsed.push(
-          tag.title
-        )
+        this.tagsUsed.push({
+          title: tag.title
+        })
       } else {
         this.tagsUsed.splice(tag.title, 1)
       }
@@ -255,4 +256,8 @@ export default {
   margin-bottom 0
   margin-right 10px
   height 42px
+
+.button-list
+  display flex
+  justify-content flex-end
 </style>

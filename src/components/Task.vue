@@ -2,18 +2,30 @@
   .content-wrapper
     section
       .container
-        h1.ui-title-1 Tasks
+        .task-list__header
+          h1.ui-title-1 Tasks
+          .buttons-list
+            p {{ filter }}
+            .button.button--round.button-default(
+              @click="filter = 'active'"
+            ) Active
+            .button.button--round.button-default(
+              @click="filter = 'completed'"
+            ) Completed
+            .button.button--round.button-default(
+              @click="filter = 'all'"
+            ) All
         .task-list
           .task-item(
-            v-for="task in tasks"
-            :key="tasks.id"
+            v-for="task in tasksFilter"
+            :key="task.id"
             :class="{ completed: task.completed }"
           )
             .ui-card.ui-card--shadow
               .task-item__info
                 .task-item__main-info
                   span.ui-label.ui-label--light {{ task.whatWatch }}
-                  span Total Time:
+                  span Total Time: {{ task.time }}
                 span.button-close
               .task-item__content
                 .task-item__header
@@ -25,12 +37,31 @@
                   span.ui-title-3 {{ task.title }}
                 .task-item__body
                   p.ui-text-regular {{ task.description }}
+                .task-item__foter
+                  .tag-list
+                    .ui-tag__wrapper(
+                      v-for="tag in task.tags"
+                      :key="tag.title"
+                    )
+                      .ui-tag
+                        span.tag-title {{tag.title}}
 </template>
 <script>
 export default {
+  data () {
+    return {
+      filter: 'active'
+    }
+  },
   computed: {
-    tasks () {
-      return this.$store.getters.tasks
+    tasksFilter () {
+      if (this.filter === 'active') {
+        return this.$store.getters.taskNotCompleted
+      } else if (this.filter === 'completed') {
+        return this.$store.getters.taskCompleted
+      } else if (this.filter === 'all') {
+        return this.$store.getters.tasks
+      }
     }
   }
 }
