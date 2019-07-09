@@ -70,6 +70,12 @@ export default {
 <style lang="stylus" scoped>
 .task-item
   margin-bottom 20px
+  .ui-checkbox:checked:before
+    border-color #909399
+  &.completed
+    .ui-title-3
+      text-decoration line-through
+      color #909399
   &:last-child
     margin-bottom 0
 
@@ -92,5 +98,15 @@ export default {
   .ui-checkbox-wrapper
     margin-right 8px
   .ui-title-3
+    margin-bottom 0
+
+.task-list__header
+  display flex
+  justify-content space-between
+  align-items center
+  margin-bottom 30px
+  .button
+    margin-right 8px
+  .ui-title-1
     margin-bottom 0
 </style>
