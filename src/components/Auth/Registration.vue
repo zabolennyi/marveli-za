@@ -93,9 +93,6 @@ export default {
           .catch(err => {
             this.submitStatus = err.message
           })
-        // setTimeout(() => {
-        //   this.submitStatus = 'OK'
-        // }, 500)
       }
     }
   },
