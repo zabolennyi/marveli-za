@@ -24,7 +24,12 @@ Circle | [![Circle CI](https://circleci.com/gh/zabolennyi/marveli-za.svg?style=s
 
 ## Demo
 
+### Homepage
 <img src="static/1.png">
+
+### Add film
 <img src="static/2.png">
+
+### List of films/series already wathced/to watch
 <img src="static/3.png">
 

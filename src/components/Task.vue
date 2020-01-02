@@ -3,7 +3,7 @@
     section
       .container
         .task-list__header
-          h1.ui-title-1 Tasks
+          h1.ui-title-1 Films
           .buttons-list
             p {{ filter }}
             .button.button--round.button-default(
