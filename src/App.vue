@@ -4,21 +4,44 @@
       .navbar
         .container
           .navbar-content
-            a.header-logo() Marveli-ZA
-            .button-burger
+            router-link.header-logo(
+              to="/"
+            ) Marveli-ZA
+            .button-burger(
+              @click="menuShow = !menuShow"
+              :class="{ active: menuShow}"
+            )
               span.line.line-1
               span.line.line-2
               span.line.line-3
-            .navbar-list__wrapper
+            .navbar-list__wrapper(
+              :class="{ active: menuShow}"
+            )
               ul.navbar-list
-                li.navbar-item
-                  a.navbar-link() List
-    .content-wrapper
+                li.navbar-item(
+                  v-for="link in linkMenu"
+                  :key="link.tittle"
+                  @click="menuShow = false"
+                )
+                  router-link.navbar-link(
+                    :to="`${link.url}`"
+                  ) {{link.tittle}}
+    router-view
 </template>
 
 <script>
 export default {
-  name: 'App'
+  data () {
+    return {
+      menuShow: false,
+      linkMenu: [
+        {tittle: 'Home', url: '/'},
+        {tittle: 'Films', url: '/task'},
+        {tittle: 'Login', url: '/login'},
+        {tittle: 'Registration', url: '/registration'}
+      ]
+    }
+  }
 }
 </script>
 

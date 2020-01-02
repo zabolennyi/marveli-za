@@ -17,3 +17,5 @@ test:
     - npm start &
     - sleep 15
     - npm run cy:run
+  only:
+  - master

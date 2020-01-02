@@ -2,7 +2,6 @@ language: node_js
 
 node_js:
   - 10.8
-
 addons:
   apt:
     packages:
@@ -18,6 +17,10 @@ cache:
     - npm ci
     - npm run cy:verify
 
+branches:
+  only:
+  - dev
+  
 script:
   # start server in the background
   - npm start &
