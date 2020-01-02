@@ -15,7 +15,8 @@ npm run dev
 npm run build
 
 ```
-c
+## CI status
+
 CI | Build status | basic config file | 
 :--- | :--- | :--- |
 GitLab | [![GitLab CI](https://gitlab.com/zabolennyi/marveli-za/badges/master/pipeline.svg)](https://gitlab.com/zabolennyi/marveli-za/commits/master) | [.gitlab-ci.yml](.gitlab-ci.yml) |
