@@ -15,10 +15,16 @@ npm run dev
 npm run build
 
 ```
-## CI status
-
+c
 CI | Build status | basic config file | 
 :--- | :--- | :--- |
 GitLab | [![GitLab CI](https://gitlab.com/zabolennyi/marveli-za/badges/master/pipeline.svg)](https://gitlab.com/zabolennyi/marveli-za/commits/master) | [.gitlab-ci.yml](.gitlab-ci.yml) |
 Travis | [![Travis CI](https://travis-ci.org/zabolennyi/marveli-za.svg?branch=master)](https://travis-ci.org/zabolennyi/marveli-za) | [.travis.yml](.travis.yml) | 
 Circle | [![Circle CI](https://circleci.com/gh/zabolennyi/marveli-za.svg?style=svg)](https://circleci.com/gh/zabolennyi/marveli-za) | [circle.yml](circle.yml) |
+
+## Demo
+
+<img src="static/1.png">
+<img src="static/2.png">
+<img src="static/3.png">
+
