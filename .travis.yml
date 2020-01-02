@@ -6,7 +6,7 @@ addons:
   apt:
     packages:
     - libgconf-2-4
-    
+
 cache:
   # cache both npm modules and Cypress binary
   directories:
